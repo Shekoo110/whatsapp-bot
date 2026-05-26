@@ -17,21 +17,21 @@ async function startBot() {
         logger: P({ level: "silent" })
     })
 
-    sock.ev.on("connection.update", (update) => {
-    const { connection, lastDisconnect, qr } = update
+    sock.ev.on("connection.update", async (update) => {
+  const { connection, lastDisconnect, qr } = update
 
-    if (qr) {
-        console.log("QR RECEIVED", qr)
-    }
+  if (qr) {
+    console.log("QR RECEIVED", qr)
+  }
 
-    console.log("Connection Update:", update)
+  console.log("Connection Update:", update)
 
-    if (connection === "open") {
-        console.log("WhatsApp Connected ✅")
-    }
+  if (connection === "open") {
+    console.log("WhatsApp Connected ✅")
+  }
 
-    if (connection === "close") {
-        console.log("Connection Closed ❌")
+  if (connection === "close") {
+    console.log("Connection Closed ❌")
     }
 })
 
