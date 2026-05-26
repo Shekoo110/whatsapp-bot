@@ -40,7 +40,11 @@ async function startBot() {
     console.log("MESSAGE RECEIVED")
 
     const msg = messages[0]
+if (!msg.message) return
 
+const isGroup = msg.key.remoteJid.endsWith("@g.us")
+
+console.log(isGroup ? "MESSAGE FROM GROUP" : "PRIVATE MESSAGE")
         if (!msg.message) return
 
         const text =
