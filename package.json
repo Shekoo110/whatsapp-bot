@@ -12,6 +12,8 @@
   "type": "commonjs",
   "dependencies": {
     "@whiskeysockets/baileys": "^7.0.0-rc13",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "pino": "^8.21.0",
+    "qrcode-terminal": "^0.12.0"
   }
 }
