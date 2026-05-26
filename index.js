@@ -7,7 +7,7 @@ const fs = require("fs")
 const path = require("path")
 const P = require("pino")
 const express = require("express")
-
+const qrcode = require("qrcode-terminal")
 // ====== Express Server ======
 const app = express()
 
@@ -30,7 +30,7 @@ async function startBot() {
     const sock = makeWASocket({
         auth: state,
         logger: P({ level: "silent" }),
-        printQRInTerminal: true,
+        printQRInTerminal: false,
         syncFullHistory: true,
         markOnlineOnConnect: true,
         browser: ["Ubuntu", "Chrome", "20.0.04"]
@@ -43,9 +43,10 @@ async function startBot() {
     sock.ev.on("connection.update", async (update) => {
 
         const {
-            connection,
-            lastDisconnect
-        } = update
+    connection,
+    lastDisconnect,
+    qr
+} = update
 
         // ====== Pairing Code ======
         if (connection === "open") {
