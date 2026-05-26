@@ -17,27 +17,23 @@ async function startBot() {
         logger: P({ level: "silent" })
     })
 
-    sock.ev.on("creds.update", saveCreds)
+    sock.ev.on("connection.update", (update) => {
+    const { connection, lastDisconnect, qr } = update
 
-    sock.ev.on("connection.update", ({ connection, lastDisconnect, qr }) => {
+    if (qr) {
+        console.log("QR RECEIVED", qr)
+    }
 
-        if (qr) {
-            console.log("امسح QR من واتساب")
-        }
+    console.log("Connection Update:", update)
 
-        if (connection === "open") {
-            console.log("تم تشغيل البوت")
-        }
+    if (connection === "open") {
+        console.log("WhatsApp Connected ✅")
+    }
 
-        if (connection === "close") {
-            const shouldReconnect =
-                lastDisconnect?.error?.output?.statusCode !== DisconnectReason.loggedOut
-
-            if (shouldReconnect) {
-                startBot()
-            }
-        }
-    })
+    if (connection === "close") {
+        console.log("Connection Closed ❌")
+    }
+})
 
     sock.ev.on("messages.upsert", async ({ messages }) => {
 
