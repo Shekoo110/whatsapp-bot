@@ -37,7 +37,9 @@ async function startBot() {
 
     sock.ev.on("messages.upsert", async ({ messages }) => {
 
-        const msg = messages[0]
+    console.log("MESSAGE RECEIVED")
+
+    const msg = messages[0]
 
         if (!msg.message) return
 
