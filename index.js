@@ -71,12 +71,12 @@ async function startBot() {
     // ====== Save Session ======
     sock.ev.on("connection.update", async (update) => {
 
-    const { connection, lastDisconnect, qr: newQr } = update
+    const { connection, qr: newQr } = update
 
 if (newQr) {
     qr = newQr
-    console.log(newQr)
     console.log("QR RECEIVED")
+    console.log(qr)
 }
         
 
