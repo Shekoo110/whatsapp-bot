@@ -8,6 +8,7 @@ const path = require("path")
 const P = require("pino")
 const express = require("express")
 const qrcode = require("qrcode-terminal")
+
 // ====== Express Server ======
 const app = express()
 
@@ -18,7 +19,7 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
+    console.log(Server running on port ${PORT})
 })
 
 // ====== Start Bot ======
@@ -28,14 +29,16 @@ async function startBot() {
         await useMultiFileAuthState("session")
 
     const sock = makeWASocket({
-    auth: state,
-    logger: P({ level: "silent" }),
-    printQRInTerminal: true,
-    qrTimeout: 60000,
-    syncFullHistory: true,
-    markOnlineOnConnect: true,
-    browser: ["Ubuntu", "Chrome", "20.0.04"]
-})
+        auth: state,
+        logger: P({ level: "silent" }),
+
+        // مهم
+        printQRInTerminal: false,
+
+        syncFullHistory: true,
+        markOnlineOnConnect: true,
+        browser: ["Ubuntu", "Chrome", "20.0.04"]
+    })
 
     // ====== Save Session ======
     sock.ev.on("creds.update", saveCreds)
@@ -44,30 +47,35 @@ async function startBot() {
     sock.ev.on("connection.update", async (update) => {
 
         const {
-    connection,
-    lastDisconnect,
-    qr
-} = update
+            connection,
+            lastDisconnect,
+            qr
+        } = update
 
+        // ====== QR ======
         if (qr) {
 
-    console.log("QR RECEIVED")
+            console.log("========== QR CODE ==========")
 
-    fs.writeFileSync("qr.txt", qr)
-console.log("QR SAVED")
-}
+            qrcode.generate(qr, {
+                small: true
+            })
 
-if (connection === "open") {
+            console.log("========== SCAN QR ==========")
+        }
 
-    console.log("WhatsApp Connected ✅")
-}
+        // ====== Connected ======
+        if (connection === "open") {
 
-if (connection === "close") {
+            console.log("WhatsApp Connected ✅")
+        }
 
-    console.log("Connection Closed ❌")
+        // ====== Closed ======
+        if (connection === "close") {
 
-    startBot()
+            console.log("Connection Closed ❌")
 
+            startBot()
         }
     })
 
