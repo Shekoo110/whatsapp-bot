@@ -19,7 +19,26 @@ app.get("/", (req, res) => {
 })
 
 const PORT = process.env.PORT || 3000
+
 let qr = ""
+
+app.get("/qr", async (req, res) => {
+
+    if (!qr) {
+        return res.send("QR not ready yet")
+    }
+
+    const qrImage = await QRCode.toDataURL(qr)
+
+    res.send(`
+        <html>
+            <body style="display:flex;justify-content:center;align-items:center;height:100vh">
+                <img src="${qrImage}" />
+            </body>
+        </html>
+    `)
+})
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
@@ -52,18 +71,7 @@ if (newQr) {
     if (qr) {
         console.log("QR RECEIVED")
 
-        app.get("/qr", async (req, res) => {
-
-            const qrImage = await QRCode.toDataURL(qr)
-
-            res.send(`
-                <html>
-                    <body style="display:flex;justify-content:center;align-items:center;height:100vh;">
-                        <img src="${qrImage}" />
-                    </body>
-                </html>
-            `)
-        })
+        
     }
 
     if (connection === "open") {
