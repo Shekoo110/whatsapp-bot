@@ -7,7 +7,7 @@ const fs = require("fs")
 const path = require("path")
 const P = require("pino")
 const express = require("express")
-
+const qrcode = require("qrcode-terminal")
 // ====== Express Server ======
 const app = express()
 
@@ -49,8 +49,9 @@ async function startBot() {
         } = update
 
         if (qr) {
-            console.log("QR RECEIVED")
-        }
+    console.log("امسح هذا QR من واتساب")
+    qrcode.generate(qr, { small: true })
+}
 
         console.log("Connection Update:", update)
 
