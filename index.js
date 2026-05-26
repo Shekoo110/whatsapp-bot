@@ -7,7 +7,7 @@ const fs = require("fs")
 const path = require("path")
 const P = require("pino")
 const express = require("express")
-const qrcode = require("qrcode-terminal")
+
 // ====== Express Server ======
 const app = express()
 
@@ -48,10 +48,14 @@ async function startBot() {
             qr
         } = update
 
-        if (qr) {
-    console.log("امسح هذا QR من واتساب")
-    qrcode.generate(qr, { small: true })
-}
+        if (!sock.authState.creds.registered) {
+
+    const phoneNumber = "9647828724201"
+
+    const code = await sock.requestPairingCode(phoneNumber)
+
+    console.log("PAIRING CODE:", code)
+        }
 
         console.log("Connection Update:", update)
 
