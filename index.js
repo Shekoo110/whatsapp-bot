@@ -234,6 +234,6 @@ async function startBot() {
             console.log(err)
         }
     })
-}
+
 // ====== Run Bot ======
 startBot()
