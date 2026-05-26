@@ -7,8 +7,7 @@ const fs = require("fs")
 const path = require("path")
 const P = require("pino")
 const express = require("express")
-const qrcode = require("qrcode-terminal")
-
+const QRCode = require("qrcode")
 // ====== Express Server ======
 const app = express()
 
@@ -48,16 +47,13 @@ async function startBot() {
     const { connection, lastDisconnect, qr } = update
 
     if (qr) {
-        console.log("QR RECEIVED")
-        qrcode.generate(qr, { small: true })
-    }
+    console.log("QR RECEIVED")
 
-    if (connection === "open") {
-        console.log("WhatsApp Connected ✅")
-    }
+    const QRCode = require("qrcode")
 
-    if (connection === "close") {
-        console.log("Connection Closed ❌")
+    QRCode.toFile("./qr.png", qr, function (err) {
+        if (err) throw err
+        console.log("QR SAVED")
         startBot()
     }
 
