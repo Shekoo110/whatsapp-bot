@@ -46,41 +46,23 @@ async function startBot() {
     // ====== Connection ======
     sock.ev.on("connection.update", async (update) => {
 
-        const {
-            connection,
-            lastDisconnect,
-            qr
-        } = update
-if (qr) {
-    console.log("QR RECEIVED")
-    qrcode.generate(qr, { small: true })
-}
-        // ====== QR ======
-        if (qr) {
+    const { connection, lastDisconnect, qr } = update
 
-            console.log("========== QR CODE ==========")
+    if (qr) {
+        console.log("QR RECEIVED")
+        qrcode.generate(qr, { small: true })
+    }
 
-            qrcode.generate(qr, {
-                small: true
-            })
+    if (connection === "open") {
+        console.log("WhatsApp Connected ✅")
+    }
 
-            console.log("========== SCAN QR ==========")
-        }
+    if (connection === "close") {
+        console.log("Connection Closed ❌")
+        startBot()
+    }
 
-        // ====== Connected ======
-        if (connection === "open") {
-
-            console.log("WhatsApp Connected ✅")
-        }
-
-        // ====== Closed ======
-        if (connection === "close") {
-
-            console.log("Connection Closed ❌")
-
-            startBot()
-        }
-    })
+})
 
     // ====== Messages ======
     sock.ev.on("messages.upsert", async ({ messages }) => {
