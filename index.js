@@ -45,6 +45,8 @@ async function startBot() {
 
 const { connection, qr } = update
 
+console.log(update)
+
 if (qr) {
 
 console.log("QR RECEIVED")
