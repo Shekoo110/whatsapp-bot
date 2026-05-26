@@ -43,6 +43,8 @@ async function startBot() {
     // ====== Save Session ======
     sock.ev.on("connection.update", async (update) => {
 
+console.log(update)
+
 const { connection, lastDisconnect, qr } = update
 
 if (qr) {
@@ -227,6 +229,6 @@ if (qr) {
         }
     })
 }
-
+connectToWhatsApp()
 // ====== Run Bot ======
 startBot()
