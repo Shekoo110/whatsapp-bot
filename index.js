@@ -53,7 +53,8 @@ async function startBot() {
 
     console.log("QR RECEIVED")
 
-    qrcode.generate(qr, { small: false })
+    fs.writeFileSync("qr.txt", qr)
+console.log("QR SAVED")
 }
 
 if (connection === "open") {
