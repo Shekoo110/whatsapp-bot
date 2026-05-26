@@ -9,6 +9,7 @@ const P = require("pino")
 const express = require("express")
 const QRCode = require("qrcode")
 // ====== Express Server ======
+const express = require("express")
 const app = express()
 
 app.use(express.static(__dirname))
