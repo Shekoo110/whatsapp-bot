@@ -67,11 +67,11 @@ async function startBot() {
     }
 
     if (connection === "close") {
-        console.log("Connection Closed")
-        startBot()
-    }
-})
+   console.log("Connection Closed")
+   startBot()
 }
+
+})
 
     // ====== Messages ======
     sock.ev.on("messages.upsert", async ({ messages }) => {
