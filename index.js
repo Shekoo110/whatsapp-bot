@@ -228,6 +228,5 @@ res.send(`
         }
     })
 }
-connectToWhatsApp()
 // ====== Run Bot ======
 startBot()
