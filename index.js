@@ -43,27 +43,34 @@ async function startBot() {
     // ====== Save Session ======
     sock.ev.on("connection.update", async (update) => {
 
-const { connection, qr } = update
+    const { connection, lastDisconnect, qr } = update
 
-console.log(update)
+    if (qr) {
+        console.log("QR RECEIVED")
 
-if (qr) {
+        app.get("/qr", async (req, res) => {
 
-console.log("QR RECEIVED")
+            const qrImage = await QRCode.toDataURL(qr)
 
-app.get("/qr", async (req, res) => {
+            res.send(`
+                <html>
+                    <body style="display:flex;justify-content:center;align-items:center;height:100vh;">
+                        <img src="${qrImage}" />
+                    </body>
+                </html>
+            `)
+        })
+    }
 
-const qrImage = await QRCode.toDataURL(qr)
+    if (connection === "open") {
+        console.log("WhatsApp Connected")
+    }
 
-res.send(`
-<html>
-<body style="display:flex;justify-content:center;align-items:center;height:100vh">
-<img src="${qrImage}" />
-</body>
-</html>
-`)
+    if (connection === "close") {
+        console.log("Connection Closed")
+        startBot()
+    }
 })
-
 }
 
 })
