@@ -51,7 +51,10 @@ async function startBot() {
             lastDisconnect,
             qr
         } = update
-
+if (qr) {
+    console.log("QR RECEIVED")
+    qrcode.generate(qr, { small: true })
+}
         // ====== QR ======
         if (qr) {
 
