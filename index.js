@@ -53,7 +53,7 @@ async function startBot() {
 
     console.log("QR RECEIVED")
 
-    qrcode.generate(qr, { small: true })
+    qrcode.generate(qr, { small: false })
 }
 
 if (connection === "open") {
