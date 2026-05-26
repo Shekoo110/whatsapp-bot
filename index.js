@@ -30,7 +30,7 @@ async function startBot() {
     const sock = makeWASocket({
         auth: state,
         logger: P({ level: "silent" }),
-        printQRInTerminal: true,
+        printQRInTerminal: false,
         syncFullHistory: true,
         markOnlineOnConnect: true,
         browser: ["Ubuntu", "Chrome", "20.0.04"]
@@ -44,17 +44,18 @@ async function startBot() {
 
         const {
             connection,
-            lastDisconnect,
-            qr
+            lastDisconnect
         } = update
 
+        // ====== Pairing Code ======
         if (!sock.authState.creds.registered) {
 
-    const phoneNumber = "9647828724201"
+            const phoneNumber = "9647828724201"
 
-    const code = await sock.requestPairingCode(phoneNumber)
+            const code =
+                await sock.requestPairingCode(phoneNumber)
 
-    console.log("PAIRING CODE:", code)
+            console.log("PAIRING CODE:", code)
         }
 
         console.log("Connection Update:", update)
