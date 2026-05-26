@@ -26,7 +26,7 @@ app.listen(PORT, () => {
 async function startBot() {
 
     const { state, saveCreds } =
-        await useMultiFileAuthState("session")
+        await useMultiFileAuthState("auth_info")
 
     const sock = makeWASocket({
         auth: state,
