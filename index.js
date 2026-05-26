@@ -28,13 +28,14 @@ async function startBot() {
         await useMultiFileAuthState("session")
 
     const sock = makeWASocket({
-        auth: state,
-        logger: P({ level: "silent" }),
-        printQRInTerminal: false,
-        syncFullHistory: true,
-        markOnlineOnConnect: true,
-        browser: ["Ubuntu", "Chrome", "20.0.04"]
-    })
+    auth: state,
+    logger: P({ level: "silent" }),
+    printQRInTerminal: true,
+    qrTimeout: 60000,
+    syncFullHistory: true,
+    markOnlineOnConnect: true,
+    browser: ["Ubuntu", "Chrome", "20.0.04"]
+})
 
     // ====== Save Session ======
     sock.ev.on("creds.update", saveCreds)
