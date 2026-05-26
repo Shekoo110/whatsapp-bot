@@ -43,26 +43,25 @@ async function startBot() {
     // ====== Save Session ======
     sock.ev.on("connection.update", async (update) => {
 
-console.log(update)
-
-const { connection, lastDisconnect, qr } = update
+const { connection, qr } = update
 
 if (qr) {
-    console.log("QR RECEIVED")
 
-    app.get("/qr", async (req, res) => {
+console.log("QR RECEIVED")
 
-        const qrImage = await QRCode.toDataURL(qr)
+app.get("/qr", async (req, res) => {
 
-        res.send(`
-        <html>
-            <body style="display:flex;justify-content:center;align-items:center;height:100vh;">
-                <img src="${qrImage}" />
-            </body>
-        </html>
-        `)
+const qrImage = await QRCode.toDataURL(qr)
 
-    })
+res.send(`
+<html>
+<body style="display:flex;justify-content:center;align-items:center;height:100vh">
+<img src="${qrImage}" />
+</body>
+</html>
+`)
+})
+
 }
 
 })
