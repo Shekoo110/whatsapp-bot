@@ -33,7 +33,7 @@ async function startBot() {
         auth: state,
         logger: P({ level: "silent" }),
 
-        printQRInTerminal: false,
+        printQRInTerminal: true,
 
         syncFullHistory: true,
         markOnlineOnConnect: true,
