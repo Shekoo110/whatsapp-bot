@@ -49,8 +49,12 @@ console.log(isGroup ? "MESSAGE FROM GROUP" : "PRIVATE MESSAGE")
 
 const text =
     msg.message.conversation ||
-    msg.message.extendedTextMessage?.text
+    msg.message.extendedTextMessage?.text ||
+    msg.message.imageMessage?.caption ||
+    msg.message.videoMessage?.caption ||
+    ""
 
+console.log("TEXT:", text)
         if (text === ".صوت") {
 
             const folderPath = "./audio"
