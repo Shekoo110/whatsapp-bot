@@ -20,7 +20,6 @@ const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => {
     console.log(Server running on port ${PORT})
-})
 
 // ====== Start Bot ======
 async function startBot() {
