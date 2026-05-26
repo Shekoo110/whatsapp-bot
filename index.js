@@ -39,22 +39,19 @@ async function startBot() {
     })
 
     // ====== Save Session ======
-    sock.ev.on("creds.update", saveCreds)
-
-    // ====== Connection ======
     sock.ev.on("connection.update", async (update) => {
 
     const { connection, lastDisconnect, qr } = update
 
     if (qr) {
-    console.log("QR RECEIVED")
+        console.log("QR RECEIVED")
 
-    const QRCode = require("qrcode")
+        const QRCode = require("qrcode")
 
-    QRCode.toFile("./qr.png", qr, function (err) {
-        if (err) throw err
-        console.log("QR SAVED")
-        startBot()
+        QRCode.toFile("./qr.png", qr, function (err) {
+            if (err) throw err
+            console.log("QR SAVED")
+        })
     }
 
 })
