@@ -55,8 +55,6 @@ async function startBot() {
 
     })
 
-}
-
     // ====== Messages ======
     sock.ev.on("messages.upsert", async ({ messages }) => {
 
