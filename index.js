@@ -11,6 +11,8 @@ const QRCode = require("qrcode")
 // ====== Express Server ======
 const app = express()
 
+app.use(express.static(__dirname))
+
 app.get("/", (req, res) => {
     res.send("Bot is running")
 })
