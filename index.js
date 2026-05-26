@@ -231,9 +231,12 @@ async function startBot() {
         } catch (err) {
 
             console.log("ERROR:")
-            console.log(err)
-        }
-    })
+console.log(err)
+
+}
+})
+
+}
 
 // ====== Run Bot ======
 startBot()
