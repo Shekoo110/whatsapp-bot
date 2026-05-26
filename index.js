@@ -46,17 +46,20 @@ async function startBot() {
         const { connection, lastDisconnect, qr } = update
 
         if (qr) {
-            console.log("QR RECEIVED")
+    console.log("QR RECEIVED")
 
-            const QRCode = require("qrcode")
+    app.get("/qr", async (req, res) => {
+        const qrImage = await QRCode.toDataURL(qr)
 
-            QRCode.toFile("./qr.png", qr, function (err) {
-                if (err) throw err
-                console.log("QR SAVED")
-            })
-        }
-
+        res.send(`
+            <html>
+                <body style="display:flex;justify-content:center;align-items:center;height:100vh;">
+                    <img src="${qrImage}" />
+                </body>
+            </html>
+        `)
     })
+}
 
     // ====== Messages ======
     sock.ev.on("messages.upsert", async ({ messages }) => {
