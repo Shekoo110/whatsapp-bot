@@ -48,33 +48,24 @@ async function startBot() {
     qr
 } = update
 
-        // ====== Pairing Code ======
-        if (connection === "open") {
+        if (qr) {
 
-    console.log("WhatsApp Connected ✅")
+    console.log("QR RECEIVED")
 
-    setTimeout(async () => {
-
-        const phoneNumber = "964782724201"
-
-        const code =
-        await sock.requestPairingCode(phoneNumber)
-
-        console.log("PAIRING CODE:", code)
-
-    }, 5000)
+    qrcode.generate(qr, { small: true })
 }
 
-        console.log("Connection Update:", update)
+if (connection === "open") {
 
-    
+    console.log("WhatsApp Connected ✅")
+}
 
-        if (connection === "close") {
+if (connection === "close") {
 
-            console.log("Connection Closed ❌")
+    console.log("Connection Closed ❌")
 
-            // إعادة تشغيل تلقائية
-            startBot()
+    startBot()
+
         }
     })
 
