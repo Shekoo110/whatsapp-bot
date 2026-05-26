@@ -48,21 +48,25 @@ async function startBot() {
         } = update
 
         // ====== Pairing Code ======
-        if (!sock.authState.creds.registered) {
+        if (connection === "open") {
 
-            const phoneNumber = "9647828724201"
+    console.log("WhatsApp Connected ✅")
 
-            const code =
-                await sock.requestPairingCode(phoneNumber)
+    setTimeout(async () => {
 
-            console.log("PAIRING CODE:", code)
-        }
+        const phoneNumber = "964782724201"
+
+        const code =
+        await sock.requestPairingCode(phoneNumber)
+
+        console.log("PAIRING CODE:", code)
+
+    }, 5000)
+}
 
         console.log("Connection Update:", update)
 
-        if (connection === "open") {
-            console.log("WhatsApp Connected ✅")
-        }
+    
 
         if (connection === "close") {
 
