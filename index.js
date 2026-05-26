@@ -66,13 +66,10 @@ async function startBot() {
 
 if (newQr) {
     qr = newQr
+    console.log(newQr)
+    console.log("QR RECEIVED")
 }
-
-    if (qr) {
-        console.log("QR RECEIVED")
-
         
-    }
 
     if (connection === "open") {
         console.log("WhatsApp Connected")
