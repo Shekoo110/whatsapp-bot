@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 })
 
 const PORT = process.env.PORT || 3000
-
+let qr = ""
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
@@ -43,7 +43,11 @@ async function startBot() {
     // ====== Save Session ======
     sock.ev.on("connection.update", async (update) => {
 
-    const { connection, lastDisconnect, qr } = update
+    const { connection, lastDisconnect, qr: newQr } = update
+
+if (newQr) {
+    qr = newQr
+}
 
     if (qr) {
         console.log("QR RECEIVED")
